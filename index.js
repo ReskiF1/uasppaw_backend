@@ -13,9 +13,19 @@ const MONGODB_URI = process.env.MONGODB_URI;
 
 const schemaData = mongoose.Schema(
   {
+    nim: String,
     name: String,
-    email: String,
+    gender: {
+      type: String,
+      enum: ["Laki-laki", "Perempuan"],
+    },
+    tgl: Date,
+    religi: {
+      type: String,
+      enum: ["Islam", "Protestan", "Katolik", "Hindu", "Buddha", "Konghucu"],
+    },
     mobile: String,
+    email: String,
   },
   {
     timestamps: true,
