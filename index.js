@@ -62,6 +62,23 @@ app.delete("/delete/:id", async (req, res) => {
   res.send({ success: true, message: "data delete successfully", data: data });
 });
 
+app.post("/checkNIMUnique", async (req, res) => {
+  const { nim } = req.body;
+
+  try {
+    const existingUser = await userModel.findOne({ nim });
+
+    if (existingUser) {
+      res.json({ unique: false });
+    } else {
+      res.json({ unique: true });
+    }
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
 mongoose
   .connect(MONGODB_URI)
   .then(() => {
